@@ -1,0 +1,17 @@
+{
+  "samples_configs": [
+    {
+      "name": "—реднее проведенное врем€ в игре",
+      "data_base_request": "SELECT avg(f_end_stamp - f_start_stamp) FROM t_sessions_log WHERE f_player_id = %player_id% HAVING  avg(f_end_stamp - f_start_stamp) != 0"
+    },
+    {
+      "name": "—редн€€ сумма ставок",
+      "data_base_request": "select avg(val) from(SELECT sum(f_bet) as val FROM t_participation join t_game on t_game.f_id = f_game_id  WHERE f_player_id = %player_id% group by cast(f_started_stamp as date)) as avgr WHERE val != 0"
+    },
+    {
+      "name": "—реднее число побед",
+      "data_base_request": "SELECT avg(val) FROM (select sum(f_is_win)/count(f_is_win) as val from t_participation as p join t_game as g on p.f_game_id = g.f_id where p.f_player_id = %player_id% group by cast(f_started_stamp as date) ) as avgr WHERE val != 0"
+    }
+  ],
+  "user_query_from_data_base": "select distinct f_player_id from t_participation"
+}
