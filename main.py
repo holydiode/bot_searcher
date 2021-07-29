@@ -237,15 +237,13 @@ class BotFinder:
         report.prepare_all_image(
             bf.drow_all_plot(zoom=False) + bf.drow_all_plot(zoom=True) + [bf.drow_3d_plot(zoom=True)])
 
-        print("--- %s seconds ---" % (time.time() - start_time))
 
         r = report.make_report(['id пользователя'] + [sample.name for sample in bf.shema.samples],
-                               [[player] + list(bf.shema[player]) for player in
-                                bf.shema.eject_point],
-                               [[[player] + list(bf.shema[player]) for player in
-                                 sample.linar_ejection()] for sample in bf.shema.samples],
-                               [['pink' if player in bf.shema.eject_point else 'cornflowerblue' for player in
-                                 sample.linar_ejection()] for sample in bf.shema.samples])
+                               [[player] + list(bf.shema[player]) for player in bf.shema.eject_point],
+                               [[[player] + list(bf.shema[player]) for player in sample.linar_ejection()] for sample in bf.shema.samples],
+                               [['pink' if player in bf.shema.eject_point else 'cornflowerblue' for player in sample.linar_ejection()] for sample in bf.shema.samples])
+
+
 
         with open(self.main_config.report_folder_name + '/отчет.html', 'w') as file:
             file.write(r)

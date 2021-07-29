@@ -1,6 +1,6 @@
 from BotFinderConfigs import SamplesConfig
 from UserDataBase import UserDataBase
-from VPTree import VPTreeNode
+from vptree import VPTree
 import time
 
 class Sample(dict):
@@ -105,7 +105,8 @@ class Sample(dict):
         :return: аномальные элементы
         :rtype: [str]
         '''
-        return [player for player in self.keys() if self[player] < self.right_range()[0] or self[player] > self.right_range()[1]]
+        right_range = self.right_range()
+        return  [player for player in self.keys() if self[player] < right_range[0] or self[player] > right_range[1]]
 
     def right_range(self):
         """
@@ -173,7 +174,7 @@ class ShemaPlayerSamples():
         """линейные выборки данных"""
         self.neighbour_count = neighbour_count
         """количество соседей в метоле локального вброса"""
-        self.VPtree = VPTreeNode(self.points, self.distance)
+        self.vp_tree = None
         """Дерево точек обзора"""
         self.lip = lip
         """порог, за которым данные являются анмальными"""
@@ -205,7 +206,6 @@ class ShemaPlayerSamples():
         self.samples.append(sample)
 
     def near_ditance(self, point):
-        return 'boopa'
         """
         вернуть ближайшие n точек к заданной точки
 
@@ -214,18 +214,14 @@ class ShemaPlayerSamples():
         :return: список id ближайших данных (точек)
         :rtype: [str]
         """
-        if point in self.__near_neighbour:
-            return self.distance(point, self.__near_neighbour[point][-1])
-        else:
-            distances = [(other_point, self.distance(point, other_point)) for other_point in self.points if
-                         point != other_point]
-            distances.sort(key=lambda x: x[1])
-            self.__near_neighbour[point] = [dis[0] for dis in distances[:self.neighbour_count]]
-            return distances[self.neighbour_count - 1][1]
+        if point not in self.__near_neighbour:
+            self.__near_neighbour[point] = self.VPtree.get_n_nearest_neighbors(point, self.neighbour_count)
+
+        return self.distance(point, self.__near_neighbour[point][-1])
 
     def distance(self, first_point, second_pont):
         """
-        DADA
+
         найти нормализированое евклидово растояние между точками
 
         :param first_point: id первой точки
@@ -259,7 +255,9 @@ class ShemaPlayerSamples():
         :return: список id точек в области досягаемости
         :rtype: [str]
         """
-        self.near_ditance(point)
+        if point not in self.__near_neighbour:
+            self.__near_neighbour[point] = self.VPtree.get_n_nearest_neighbors(point, self.neighbour_count)
+
         return self.__near_neighbour[point]
 
     def local_reachability_density(self, point):
@@ -270,16 +268,6 @@ class ShemaPlayerSamples():
         :type point: 'str'
         :return: значение плотности
         :rtype: float
-        '''
-        '''
-        start_time = time.time()
-        near_points = self.point_on_zone(point)
-        other_sum = sum(self.reachability_distance(point, some_near_point) for some_near_point in near_points)
-        print("--- %s seconds ---" % (time.time() - start_time))
-        if other_sum == 0:
-            return float('inf')
-        else:
-            return len(near_points) / other_sum
         '''
 
         if point not in self.__pre_distance:
@@ -313,13 +301,13 @@ class ShemaPlayerSamples():
         :rtype: [str]
         """
         start_time = time.time()
+        self.VPtree = VPTree(self.points, self.distance)
 
         corrupt = []
         for poit in self.points:
             if self.local_ouliter_factor(poit) > self.lip:
                 corrupt.append(poit)
 
-        print("--- %s seconds ---" % (time.time() - start_time))
         return corrupt
 
     def load_sessionf_from_config_file(self, cfg: SamplesConfig):
