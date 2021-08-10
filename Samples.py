@@ -1,7 +1,6 @@
 from BotFinderConfigs import SamplesConfig
 from UserDataBase import UserDataBase
 from vptree import VPTree
-import time
 
 class Sample(dict):
     """
@@ -98,17 +97,17 @@ class Sample(dict):
         except:
             return False
 
-    def linar_ejection(self):
+    def linear_ejection(self):
         '''
         получить id анамальных элементов выборки
 
         :return: аномальные элементы
         :rtype: [str]
         '''
-        right_range = self.right_range()
+        right_range = self.verified_segment()
         return  [player for player in self.keys() if self[player] < right_range[0] or self[player] > right_range[1]]
 
-    def right_range(self):
+    def verified_segment(self):
         """
         интервал, в котором находятся достоверные элементы
 
@@ -124,7 +123,7 @@ class Sample(dict):
              )
          )
 
-    def zoom_range(self):
+    def remissible_segment(self):
         """
         интервал, в которых ожидаймо нохождение некоторого количества элементов
 
@@ -151,10 +150,8 @@ class Sample(dict):
         """
         s = db.execute(self.data_base_request.replace( '%player_id%',player_id))
         self[player_id] = float(s[0][0])
-        if float(s[0][0]) > self.max:
-            self.max = float(s[0][0])
-        elif float(s[0][0]) < self.min:
-            self.min = float(s[0][0])
+        self.max = max(self[player_id], self.max)
+        self.min = min(self[player_id], self.min)
 
 
 class ShemaPlayerSamples():
@@ -180,34 +177,25 @@ class ShemaPlayerSamples():
         """порог, за которым данные являются анмальными"""
         self.__near_neighbour = {}
         """ближайшие n соседей к точкам"""
-        self.__eject_point = None
-        """аномальные данные"""
 
 
 
         self.__pre_distance = {}
 
-    @property
-    def eject_point(self):
-        """
-        получить id аномальных данных
-        """
-        if self.__eject_point is None:
-            self.__eject_point = self.corrupt_points_by_local_ouliter_factor()
-        return self.__eject_point
-
-    def append_sample(self, sample: Sample):
+    def append_sample(self, name: str, query:str = ""):
         """
         доабвить выборку
 
-        :param sample: выборка
-        :type sample: Sample
+        :param name: имя выборки
+        :type sample: str
+        :param name: запрос выборки
+        :type sample: str
         """
-        self.samples.append(sample)
+        self.samples.append(Sample(name,query))
 
-    def near_ditance(self, point):
+    def nearest_distance(self, point):
         """
-        вернуть ближайшие n точек к заданной точки
+        вернуть растояние к ближайшей n-ой точеке
 
         :param point: id набора данных (точки)
         :type point: str
@@ -244,9 +232,9 @@ class ShemaPlayerSamples():
         :return: расстояние
         :rtype: float
         """
-        return max(self.near_ditance(second_pont), self.distance(first_point, second_pont))
+        return max(self.nearest_distance(second_pont), self.distance(first_point, second_pont))
 
-    def point_on_zone(self, point):
+    def point_on_nearest_distance(self, point):
         """
         Получить точки в области досягаемости заданной точки
 
@@ -271,7 +259,7 @@ class ShemaPlayerSamples():
         '''
 
         if point not in self.__pre_distance:
-            near_points = self.point_on_zone(point)
+            near_points = self.point_on_nearest_distance(point)
             other_sum = sum(self.reachability_distance(point, some_near_point) for some_near_point in near_points)
             if other_sum == 0:
                 self.__pre_distance[point] =  float('inf')
@@ -289,18 +277,23 @@ class ShemaPlayerSamples():
         :return: локальный уровень вброса
         :rtype: float
         """
-        near_points = self.point_on_zone(point)
+        near_points = self.point_on_nearest_distance(point)
         return sum(self.local_reachability_density(orher_point) for orher_point in near_points) / (
                     len(near_points) * self.local_reachability_density(point))
 
-    def corrupt_points_by_local_ouliter_factor(self):
+    def outliers_point(self):
         """
         получить список аномальных данных методом уровня локального вброса
 
         :return: id аномальных данных
         :rtype: [str]
         """
-        start_time = time.time()
+
+        if len(self.points) < 1:
+            raise Exception('отсутствуют данные для анализа')
+        if len(self.points) < self.neighbour_count or self.neighbour_count < 1 :
+            raise Exception('указано не верное число соседей, или данных слишком мало')
+
         self.VPtree = VPTree(self.points, self.distance)
 
         corrupt = []
@@ -309,16 +302,6 @@ class ShemaPlayerSamples():
                 corrupt.append(poit)
 
         return corrupt
-
-    def load_sessionf_from_config_file(self, cfg: SamplesConfig):
-        """
-        загрузить данные о выборках из конфигурации
-
-        :param cfg: конфигурация выборок
-        :type cfg: SamplesConfig
-        """
-        for i in cfg.samples_configs:
-            self.append_sample(Sample(i['name'],i['data_base_request']))
 
     def __getitem__(self, item):
         """
@@ -329,9 +312,9 @@ class ShemaPlayerSamples():
         :return:
         :rtype:
         """
-        return (sample[item] for sample in self.samples)
+        return [sample[item] for sample in self.samples]
 
-    def clear_from_incomplete (self, is_load_from_data_base = True, db :UserDataBase = None):
+    def clear_from_incomplete(self, is_load_from_data_base = True, db :UserDataBase = None):
         """
         синхронизировать содержание линейных выборок, удалив все элементы, которых нет во всех выборках
 

@@ -1,11 +1,10 @@
 import os
 import shutil
-import time
 
-import matplotlib.pyplot as plt
 from BotFinderConfigs import MainConfig, DataBaseConfig, SamplesConfig
 from Samples import ShemaPlayerSamples
 from UserDataBase import UserDataBase
+from binaryplot import drow_3d_plot, plot_local_ouliter_factor
 
 
 class HTMLreport:
@@ -24,10 +23,10 @@ class HTMLreport:
 
         htmlrepot = '<html><body>'
         htmlrepot += self.package_title("Отчет о анамалиях в данных пользователей")
-        htmlrepot += self.pacage_bloc('инфографика',
-                                      self.package_img_bloc_tuple(0,3) +
-                                      self.package_img_bloc_tuple(1,4) +
-                                      self.package_img_bloc_tuple(2,5) +
+        htmlrepot += self.pacage_bloc('графики',
+                                      self.package_img_bloc_tuple(0,1) +
+                                      self.package_img_bloc_tuple(2,3) +
+                                      self.package_img_bloc_tuple(4,5) +
                                       '<div style="display: flex; Justify-content: center;">' +
                                         self.package_img_bloc(6) +
                                       '</div>'
@@ -53,7 +52,27 @@ class HTMLreport:
     def package_title(self, title):
         return '<div style="text-align: center;"><h1>'+ title +'</h1></div>'
 
-    def prepare_all_image(self, figures):
+    def prepare_all_image(self, names, segments, segments_in_zoom, corupt_points, clear_points):
+        figures = []
+
+        for i in range(len(names) - 1):
+            for k in range(i + 1, len(names)):
+                figures.append(plot_local_ouliter_factor(names,
+                                                         segments,
+                                                         ([value[i] for value in corupt_points], [value[k] for value in corupt_points]),
+                                                         ([value[i] for value in clear_points], [value[k] for value in clear_points])
+                                                         )
+                               )
+                figures.append(plot_local_ouliter_factor(names,
+                                                         segments_in_zoom,
+                                                         ([value[i] for value in corupt_points], [value[k] for value in corupt_points]),
+                                                         ([value[i] for value in clear_points], [value[k] for value in clear_points])
+                                                         )
+                               )
+
+
+        figures.append(drow_3d_plot(names, segments_in_zoom, corupt_points, clear_points))
+
         for figure in figures:
             figure.savefig(self.path_dir + "/" + str(self.__count_of_photos) + '.png')
             self.__count_of_photos += 1
@@ -85,26 +104,50 @@ class HTMLreport:
         table += '</table></div>'
         return table
 
+
+
 class BotFinder:
     def __init__(self):
-        self.main_config = MainConfig().load()
+        is_first_launch = BotFinder.is_first_start()
+        self.main_config = MainConfig().load_or_create()
         self.data_base = None
+        if not is_first_launch:
+            self.try_load_data_base()
+        self.samples_config = SamplesConfig().load_or_create()
+        self.shema = ShemaPlayerSamples([],self.main_config.count_neighbors, self.main_config.eject_lip)
+        self.load_samples_from_config_file()
+        self.prepare_work_place()
+
+    @staticmethod
+    def is_first_start():
+        if os.path.exists(MainConfig().default_path):
+            return False
+        return True
+
+    def load_samples_from_config_file(self):
+        """
+        загрузить данные о выборках из конфигурации
+
+        :param cfg: конфигурация выборок
+        :type cfg: SamplesConfig
+        """
+        for i in self.samples_config.samples_configs:
+            self.shema.append_sample(i['name'], i['data_base_request'])
+
+    def try_load_data_base(self):
         if self.main_config.parse_samples_from_data_base:
-            base_config = DataBaseConfig().load(main_config=self.main_config)
+            base_config = DataBaseConfig().load_or_create(main_config=self.main_config)
             while 1:
-                self.data_base = UserDataBase(base_config.host, base_config.database, base_config.user,
-                                          base_config.password)
+                self.data_base = UserDataBase(base_config.host,
+                                              base_config.database,
+                                              base_config.user,
+                                              base_config.password)
                 if self.data_base.connection_is_correct():
                     break
                 else:
                     print('данные подключения к базе данных введены не верно')
                     if self.main_config.save_data_base_data:
-                        raise Exception('Файл конфигруации базы данных не верный')
-        self.samples_config = SamplesConfig().load()
-
-        self.shema = ShemaPlayerSamples([],self.main_config.count_neighbors, self.main_config.eject_lip)
-        self.shema.load_sessionf_from_config_file(self.samples_config)
-        self.prepare_work_place()
+                        raise Exception('Файл конфигурации базы данных неверный')
 
     def prepare_work_place(self):
         if self.main_config.save_session_data:
@@ -162,96 +205,41 @@ class BotFinder:
                       'w') as file:
                 file.write(' '.join(self.shema.points))
 
-    def drow_all_plot(self, zoom = True):
-        figures = []
-        bl = self.shema.eject_point
-        for i in range(len(self.shema.samples) - 1):
-            for k  in range(i + 1, len(self.shema.samples)):
-                figures.append(self.plot_local_ouliter_factor(i,k, bl, zoom))
-        return figures
-
-    def drow_3d_plot(self, one_number_sample = 0, two_number_sample = 1, free_number_sample = 2, zoom = True):
-        bl = self.shema.eject_point
-        fig = plt.figure(figsize=(15, 15))
-        ax =  fig.add_subplot(111, projection='3d')
-
-        ax.set_xlabel(self.shema.samples[one_number_sample].name)
-        ax.set_ylabel(self.shema.samples[two_number_sample].name)
-        ax.set_zlabel(self.shema.samples[free_number_sample].name)
-
-
-        if zoom:
-            ax.set_xlim(self.shema.samples[one_number_sample].zoom_range())
-            ax.set_ylim(self.shema.samples[two_number_sample].zoom_range())
-            ax.set_zlim(self.shema.samples[free_number_sample].zoom_range())
-
-        for player in self.shema.points:
-            color = 'b.'
-            if player in bl:
-                color = 'r.'
-            ax.plot(self.shema.samples[one_number_sample][player], self.shema.samples[two_number_sample][player], self.shema.samples[free_number_sample][player], color,  alpha=0.2)
-        return fig
-
-    def plot_local_ouliter_factor(self, first_number_sample, second_nuber_sample ,corapt_point, zoom = True):
-        fig = plt.figure()
-        tuple_plot = plt.subplot2grid((3, 3), (0, 1), rowspan=2, colspan=2)
-        cercle_plot = plt.subplot2grid((3, 3), (2, 0) )
-        first_boxplot = plt.subplot2grid((3, 3), (0, 0), rowspan=2, sharey = tuple_plot)
-        second_bocplot = plt.subplot2grid((3, 3), (2, 1), colspan=2, sharex = tuple_plot)
-
-        plt.setp(tuple_plot.get_xticklabels(), visible=False)
-        plt.setp(tuple_plot.get_yticklabels(), visible=False)
-
-        tuple_plot.set_xlabel(self.shema.samples[first_number_sample].name)
-        tuple_plot.set_ylabel(self.shema.samples[second_nuber_sample].name)
-
-        if zoom:
-            tuple_plot.set_xlim(self.shema.samples[first_number_sample].zoom_range())
-            tuple_plot.set_ylim(self.shema.samples[second_nuber_sample].zoom_range())
-
-
-        cercle_plot.set_xticks([])
-        cercle_plot.set_yticks([])
-
-        plt.setp(first_boxplot.get_xticklabels(), visible=False)
-        plt.setp(second_bocplot.get_yticklabels(), visible=False)
-
-        cercle_plot.pie( [len(corapt_point), len(self.shema.points) - len(corapt_point)], autopct=lambda pct: str(round(pct, 2)) +'%',
-                                          textprops=dict(color="gray"), colors = ['r', 'b'])
-
-        first_boxplot.boxplot(self.shema.samples[second_nuber_sample].values())
-        second_bocplot.boxplot(self.shema.samples[first_number_sample].values(), vert = False)
-
-        for dot in self.shema.points:
-            color = 'r.'
-            if dot not in corapt_point:
-                color = 'b.'
-            tuple_plot.plot(self.shema.samples[first_number_sample][dot], self.shema.samples[second_nuber_sample][dot], color, alpha=0.2)
-        return fig
-
     def make_report(self):
+        curupt_name = self.shema.outliers_point()
+        curupt_poin = [self.shema[point] for point in curupt_name]
+        clear_point = [self.shema[point] for point in self.shema.points if point not in curupt_name]
+
         report = HTMLreport(self.main_config.report_folder_name)
         report.prepare_dir()
-        start_time = time.time()
 
-        report.prepare_all_image(
-            bf.drow_all_plot(zoom=False) + bf.drow_all_plot(zoom=True) + [bf.drow_3d_plot(zoom=True)])
+        report.prepare_all_image([sample.name for sample in bf.shema.samples],
+                                 [sample.verified_segment() for sample in bf.shema.samples],
+                                 [sample.remissible_segment() for sample in bf.shema.samples],
+                                 curupt_poin,
+                                 clear_point
+                                 )
 
 
         r = report.make_report(['id пользователя'] + [sample.name for sample in bf.shema.samples],
-                               [[player] + list(bf.shema[player]) for player in bf.shema.eject_point],
-                               [[[player] + list(bf.shema[player]) for player in sample.linar_ejection()] for sample in bf.shema.samples],
-                               [['pink' if player in bf.shema.eject_point else 'cornflowerblue' for player in sample.linar_ejection()] for sample in bf.shema.samples])
+                               [[player] + list(bf.shema[player]) for player in curupt_name],
+                               [[[player] + list(bf.shema[player]) for player in sample.linear_ejection()] for sample in bf.shema.samples],
+                               [['pink' if player in curupt_name else 'cornflowerblue' for player in sample.linear_ejection()] for sample in bf.shema.samples])
 
 
 
         with open(self.main_config.report_folder_name + '/отчет.html', 'w') as file:
             file.write(r)
 
+if __name__ == '__main__':
 
-bf = BotFinder()
-bf.load_data()
-bf.make_report()
+    start_status = BotFinder.is_first_start()
+    bf = BotFinder()
+    if not start_status:
+        bf.load_data()
+        bf.make_report()
+    else:
+        print('конфигурация программы загружена успешно')
 
 
 

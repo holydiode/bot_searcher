@@ -30,7 +30,7 @@ class ProgramConfig(ABC):
         """
         return ""
 
-    def load(self, path=None):
+    def load_or_create(self, path=None):
         """
         Закгрузать содержимое файла конфигурации
 
@@ -107,7 +107,7 @@ class DataBaseConfig(ProgramConfig):
     def default_path(self):
         return "database.json"
 
-    def load(self, path=None, main_config: MainConfig = None):
+    def load_or_create(self, path=None, main_config: MainConfig = None):
         """
         загрузка файла конфигурации базы данных с диалоговыми опциями
 
@@ -124,16 +124,16 @@ class DataBaseConfig(ProgramConfig):
         if not self.config_file_is_available() or not main_config.save_data_base_data:
             self.__dialog_input()
         elif not main_config.save_data_base_passwor:
-            super().load(path)
+            super().load_or_create(path)
             self.__dialog_input_pass()
         else:
-            super().load(path)
+            super().load_or_create(path)
 
         if main_config.save_data_base_data and not self.config_file_is_available():
             save_pass = self.password
             if not main_config.save_data_base_passwor:
                 self.password = None
-            super().load(path)
+            super().load_or_create(path)
             self.password = save_pass
 
         return self
@@ -142,7 +142,7 @@ class DataBaseConfig(ProgramConfig):
         """
         диалоговый ввод всех данных подключения
         """
-        self.host = input('Адресс базы данных: ')
+        self.host = input('Адрес базы данных: ')
         self.database = input('Имя базы данных: ')
         self.user = input('Имя пользоваетля: ')
         self.__dialog_input_pass()
