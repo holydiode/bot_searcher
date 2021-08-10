@@ -8,19 +8,42 @@ from binaryplot import drow_3d_plot, plot_local_ouliter_factor
 
 
 class HTMLreport:
-    """класс формирования html запроса"""
-    def __init__(self, path):
+    """класс формирования html отчета"""
 
+    def __init__(self, path):
+        """
+
+        :param path: путь к папке хранения отчета
+        :type path: str
+        """
         self.path_dir = path
+        """путь к папке хранения отчета"""
         self.__count_of_photos = 0
+        """Количество фотографий в отчете"""
 
     def prepare_dir(self):
+        """
+        Подготовить папку для хранения отчета, в случае если папка отчета уже существует, удаить её и создать новую.
+        """
         if os.path.exists(self.path_dir):
             shutil.rmtree(path= self.path_dir)
         os.mkdir(self.path_dir)
 
     def make_report(self, samples_lable ,ejection_data, other_data, color_other_data):
+        """
+        Сформировать содержание html отчета
 
+        :param samples_lable: название выборок
+        :type samples_lable: str
+        :param ejection_data: данные точек выброса
+        :type ejection_data: [[str]]
+        :param other_data: данные точек выброса линейного анализа
+        :type other_data: [[[str]]]
+        :param color_other_data: цвета таблицы точек выброса линейного анализа
+        :type color_other_data: [[str]]
+        :return: текст html отчета
+        :rtype: str
+        """
         htmlrepot = '<html><body>'
         htmlrepot += self.package_title("Отчет о анамалиях в данных пользователей")
         htmlrepot += self.pacage_bloc('графики',
@@ -50,43 +73,104 @@ class HTMLreport:
         return htmlrepot
 
     def package_title(self, title):
+        """
+        Упаковать заголовок в html контейнер, с ориентрованием по центру
+
+        :param title: заголовок
+        :type title: str
+        :return: html код
+        :rtype: str
+        """
         return '<div style="text-align: center;"><h1>'+ title +'</h1></div>'
 
-    def prepare_all_image(self, names, segments, segments_in_zoom, corupt_points, clear_points):
+    def prepare_all_image(self, names, segments, corupt_points, clear_points):
+        """
+        Нарисовать графики и сохранить их в папке с отчетом
+
+        :param names: названия выборок
+        :type names: [str]
+        :param segments: отезок для увеличенного графика для каждой выборки
+        :type segments: [(float,float)]
+        :param corupt_points: точки выброса данных
+        :type corupt_points: [[float]]
+        :param clear_points: точки нормальных данных
+        :type clear_points: [[float]]
+        """
         figures = []
 
         for i in range(len(names) - 1):
             for k in range(i + 1, len(names)):
-                figures.append(plot_local_ouliter_factor(names,
-                                                         segments,
+                figures.append(plot_local_ouliter_factor((names[i],names[k]),
+                                                         ((min(corupt_points, key= lambda x: x[i])[i], max(corupt_points, key= lambda x: x[i])[i])
+                                                            ,(min(corupt_points, key= lambda x: x[k])[k], max(corupt_points, key= lambda x: x[k])[k])),
                                                          ([value[i] for value in corupt_points], [value[k] for value in corupt_points]),
                                                          ([value[i] for value in clear_points], [value[k] for value in clear_points])
                                                          )
                                )
-                figures.append(plot_local_ouliter_factor(names,
-                                                         segments_in_zoom,
+                figures.append(plot_local_ouliter_factor((names[i],names[k]),
+                                                         (segments[i],segments[k]),
                                                          ([value[i] for value in corupt_points], [value[k] for value in corupt_points]),
                                                          ([value[i] for value in clear_points], [value[k] for value in clear_points])
                                                          )
                                )
 
 
-        figures.append(drow_3d_plot(names, segments_in_zoom, corupt_points, clear_points))
+        figures.append(drow_3d_plot(names, segments, corupt_points, clear_points))
 
         for figure in figures:
             figure.savefig(self.path_dir + "/" + str(self.__count_of_photos) + '.png')
             self.__count_of_photos += 1
 
     def package_img_bloc(self, picture_number):
+        """
+        Упаковать картинку из папки отчета в контейнер, с ориентрованием по центру
+
+        :param picture_number: номер картиники
+        :type picture_number: int
+        :return: html код
+        :rtype: str
+        """
         return '<img src = "'+ str(picture_number) +'.png">'
 
     def pacage_bloc(self, title, content):
+        """
+        Создать html код блока с заголовком
+
+        :param title: заголовок блока
+        :type title: str
+        :param title: содержание блока
+        :type title: str
+        :return: html код
+        :rtype: str
+        """
         return '<div style="width:100%; border: 1px solid black;"><div style="text-align: center;"><h3>'+ title +'</h1></div> '+content+' </div>'
 
     def package_img_bloc_tuple(self,picture_number_one,picture_number_two):
+        """
+        Упаковать две картинки из папки отчета в контейнер в один блок
+
+        :param picture_number: номер картиники
+        :type picture_number: int
+        :return: html код
+        :rtype: str
+        """
         return '<div style="display: flex; Justify-content: space-around;">' + self.package_img_bloc(picture_number_one) + self.package_img_bloc(picture_number_two) + '</div>'
 
     def package_table(self,title,titles_column, data, color = None):
+        """
+        Сформировать html код таблицы данных
+
+        :param title: заголовок таблицы
+        :type title: str
+        :param titles_column: название колонок таблицы
+        :type titles_column: [str]
+        :param data: содкржание таблицы
+        :type data: [[str]]
+        :param color: цвета строк таблицы
+        :type color: [[str]]
+        :return: html код
+        :rtype: str
+        """
         if color is None:
             color = ['white' for _ in range(len(data))]
         table = '<div style="display: flex; Justify-content: center;"><table>'
@@ -105,8 +189,9 @@ class HTMLreport:
         return table
 
 
-
 class BotFinder:
+    """Основной класс программы, реализующий запуск чтения/генерации кофигов программы, функциии анализа данных и формировния отчетов"""
+
     def __init__(self):
         is_first_launch = BotFinder.is_first_start()
         self.main_config = MainConfig().load_or_create()
@@ -120,6 +205,12 @@ class BotFinder:
 
     @staticmethod
     def is_first_start():
+        """
+        проверка на первый запуск программы. Если в папке с программой отсутсвует основной кофигурационный файл она считается впервые запущенной
+
+        :return: True если программа запущена впервые иначе false
+        :rtype: bool
+        """
         if os.path.exists(MainConfig().default_path):
             return False
         return True
@@ -135,9 +226,14 @@ class BotFinder:
             self.shema.append_sample(i['name'], i['data_base_request'])
 
     def try_load_data_base(self):
+        """
+        Загрузить или создать файл конфигурации базы данных и проверить подключение на достоверность.
+        В случае если подключение не возможно, заного выполняет процедуру загрузки или выдает исключение
+
+        """
         if self.main_config.parse_samples_from_data_base:
-            base_config = DataBaseConfig().load_or_create(main_config=self.main_config)
             while 1:
+                base_config = DataBaseConfig().load_or_create(self.main_config.save_data_base_data, self.main_config.save_data_base_passwor)
                 self.data_base = UserDataBase(base_config.host,
                                               base_config.database,
                                               base_config.user,
@@ -150,6 +246,10 @@ class BotFinder:
                         raise Exception('Файл конфигурации базы данных неверный')
 
     def prepare_work_place(self):
+        """
+        Подготовить файлы выборок и дерикотрию для их хранения.
+        """
+
         if self.main_config.save_session_data:
             if not os.path.exists(self.main_config.samples_folder_name):
                 os.makedirs(self.main_config.samples_folder_name)
@@ -163,6 +263,12 @@ class BotFinder:
                         pass
 
     def load_list_of_player(self):
+        """
+        Загрузить список пользователей из файла или базы данных
+
+        :return: список идентификаторов игроков
+        :rtype: [str]
+        """
         list_of_player = []
         if self.main_config.save_session_data:
             with open(self.main_config.samples_folder_name + '/' +self.main_config.samples_player_name_file, 'r') as file:
@@ -177,6 +283,10 @@ class BotFinder:
         return list_of_player
 
     def load_data(self):
+        """
+        Загрузить выборки из файла или из базы данных. После загрузки проверить данные на совместимость загрузить их в файл
+        """
+
         self.shema.points = self.load_list_of_player()
 
         if self.main_config.save_session_data:
@@ -206,6 +316,9 @@ class BotFinder:
                 file.write(' '.join(self.shema.points))
 
     def make_report(self):
+        """
+        Подготовить данные для создания отчета и сохранить отчет в папке
+        """
         curupt_name = self.shema.outliers_point()
         curupt_poin = [self.shema[point] for point in curupt_name]
         clear_point = [self.shema[point] for point in self.shema.points if point not in curupt_name]
@@ -214,18 +327,15 @@ class BotFinder:
         report.prepare_dir()
 
         report.prepare_all_image([sample.name for sample in bf.shema.samples],
-                                 [sample.verified_segment() for sample in bf.shema.samples],
                                  [sample.remissible_segment() for sample in bf.shema.samples],
                                  curupt_poin,
                                  clear_point
                                  )
 
-
         r = report.make_report(['id пользователя'] + [sample.name for sample in bf.shema.samples],
                                [[player] + list(bf.shema[player]) for player in curupt_name],
                                [[[player] + list(bf.shema[player]) for player in sample.linear_ejection()] for sample in bf.shema.samples],
                                [['pink' if player in curupt_name else 'cornflowerblue' for player in sample.linear_ejection()] for sample in bf.shema.samples])
-
 
 
         with open(self.main_config.report_folder_name + '/отчет.html', 'w') as file:

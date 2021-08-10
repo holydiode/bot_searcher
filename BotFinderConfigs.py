@@ -107,31 +107,31 @@ class DataBaseConfig(ProgramConfig):
     def default_path(self):
         return "database.json"
 
-    def load_or_create(self, path=None, main_config: MainConfig = None):
+    def load_or_create(self, path=None, save_data = True, save_password = False):
         """
         загрузка файла конфигурации базы данных с диалоговыми опциями
 
         :param path: путь к файлу конифгурации
         :type path: str
-        :param main_config: конфигурация программы
-        :type main_config: MainConfig
+        :param save_data: сохранять ли данные подключения
+        :type save_data: bool
+        :param save_password: сохранять ли пароль
+        :type save_password: bool
         :return:
         :rtype: DataBaseConfig
         """
-        if main_config is None:
-            main_config = MainConfig()
 
-        if not self.config_file_is_available() or not main_config.save_data_base_data:
+        if not self.config_file_is_available() or not save_data:
             self.__dialog_input()
-        elif not main_config.save_data_base_passwor:
+        elif not save_password:
             super().load_or_create(path)
             self.__dialog_input_pass()
         else:
             super().load_or_create(path)
 
-        if main_config.save_data_base_data and not self.config_file_is_available():
+        if save_data and not self.config_file_is_available():
             save_pass = self.password
-            if not main_config.save_data_base_passwor:
+            if not save_password:
                 self.password = None
             super().load_or_create(path)
             self.password = save_pass
