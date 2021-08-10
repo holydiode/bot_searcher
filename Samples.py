@@ -7,6 +7,12 @@ class Sample(dict):
     Линейная Выборка данных
     """
     def __init__(self, name, data_base_request = None):
+        """
+
+        Args:
+            name: имя выборки
+            data_base_request: запрос базы данных для получения значения выборки по идентификатору пользователя
+        """
         super().__init__()
         self.name = name
         """название выборки"""
@@ -21,19 +27,18 @@ class Sample(dict):
         """
         получить мединау выборки
 
-        :return: медана выборки
-        :rtype: float
+        Returns:
+             медана выборки
         """
         return self.quartile(2)
 
     def quartile(self, number_quartile):
         '''
         Получить квартиь линейной выборки
-
-        :param number_quartile: номер квартили
-        :type number_quartile: int
-        :return: значение квартили
-        :rtype: float
+        Args:
+             number_quartile: номер квартили
+        Returns:
+             значение квартили
         '''
         items = sorted(self.values())
         if number_quartile == 0:
@@ -49,17 +54,16 @@ class Sample(dict):
         """
         получить межквартильное растояние
 
-        :return: межквартильное растояние
-        :rtype: float
+        Returns:
+             межквартильное растояние
         """
         return self.quartile(3) - self.quartile(1)
 
     def import_from_file(self,path):
         """
         Загрузить выборку из файла
-
-        :param path: путь к файлу
-        :type path: str
+        Args:
+             path: путь к файлу
         """
         with open(path) as file:
             for string in file:
@@ -71,9 +75,8 @@ class Sample(dict):
     def export_to_file(self,path):
         """
         записать выборку в файл
-
-        :param path: путь к файлу
-        :type path: str
+        Args:
+             path: путь к файлу
         """
         with open(path, 'w') as file:
             for player in self:
@@ -83,13 +86,11 @@ class Sample(dict):
         """
         проверить возможность получить элемент выборки из базы данных,
         если это возможно - добавить элемент в выборку
-
-        :param player_id:
-        :type player_id:
-        :param db:
-        :type db:
-        :return:
-        :rtype:
+        Args:
+             player_id: идентификатор пользователя
+             db: объект подключения к базе данных
+        Returns:
+            True если данные извлеченыу удачно, иначе Else
         """
         try:
             self.append_player_from_data_base(player_id, db)
@@ -101,8 +102,8 @@ class Sample(dict):
         '''
         получить id анамальных элементов выборки
 
-        :return: аномальные элементы
-        :rtype: [str]
+        Returns:
+             аномальные элементы
         '''
         right_range = self.verified_segment()
         return  [player for player in self.keys() if self[player] < right_range[0] or self[player] > right_range[1]]
@@ -111,8 +112,8 @@ class Sample(dict):
         """
         интервал, в котором находятся достоверные элементы
 
-        :return: пара значений - начало и канец интервала
-        :rtype: (float,float)
+        Returns:
+             пара значений - начало и канец интервала
         """
         return (max(self.min,
              self.quartile(1) - self.interquartile_range() * 1.5
@@ -127,8 +128,8 @@ class Sample(dict):
         """
         интервал, в которых ожидаймо нохождение некоторого количества элементов
 
-        :return:
-        :rtype:
+        Returns:
+            два числа, начало и конец интервала
         """
         return (max(self.min,
              self.quartile(1) - self.interquartile_range() * 3
@@ -143,10 +144,9 @@ class Sample(dict):
         """
         добавить элемент выборки из базы данных
 
-        :param player_id: id элемента выборки
-        :type player_id: int
-        :param db: база данных
-        :type db: UserDataBase
+        Args:
+             player_id: id элемента выборки
+             db: база данных
         """
         s = db.execute(self.data_base_request.replace( '%player_id%',player_id))
         self[player_id] = float(s[0][0])
@@ -156,40 +156,42 @@ class Sample(dict):
 
 class ShemaPlayerSamples():
     """класс для комплексного анализа одномерных выборок"""
+
     def __init__(self, points, neighbour_count, lip):
         """
-        :param points: id данных в выборках
-        :type points: ['str']
-        :param neighbour_count: количество соседей в методе локального вброса
-        :type neighbour_count: int
-        :param lip: порог, за которым данные являются анмальными
-        :type lip: float
+        Args:
+             points: id данных в выборках
+             neighbour_count: количество соседей в методе локального вброса
+             lip: порог, за которым данные являются анмальными
         """
+        ##id точек, в выборках
         self.points = points
         """id точек, в выборках"""
+        ##линейные выборки данных
         self.samples = []
         """линейные выборки данных"""
+        ##количество соседей в метоле локального вброса
         self.neighbour_count = neighbour_count
         """количество соседей в метоле локального вброса"""
+        ##Дерево точек обзора
         self.vp_tree = None
         """Дерево точек обзора"""
+        ##порог, за которым данные являются анмальными
         self.lip = lip
         """порог, за которым данные являются анмальными"""
+        ##ближайшие n соседей к точкам
         self.__near_neighbour = {}
         """ближайшие n соседей к точкам"""
-
-
-
+        ##локальная дистаниця точек
         self.__pre_distance = {}
 
     def append_sample(self, name: str, query:str = ""):
         """
         доабвить выборку
 
-        :param name: имя выборки
-        :type sample: str
-        :param name: запрос выборки
-        :type sample: str
+        Args:
+             name: имя выборки
+             name: запрос выборки
         """
         self.samples.append(Sample(name,query))
 
@@ -197,10 +199,10 @@ class ShemaPlayerSamples():
         """
         вернуть растояние к ближайшей n-ой точеке
 
-        :param point: id набора данных (точки)
-        :type point: str
-        :return: список id ближайших данных (точек)
-        :rtype: [str]
+        Args:
+             point: id набора данных (точки)
+        Returns:
+             список id ближайших данных (точек)
         """
         if point not in self.__near_neighbour:
             self.__near_neighbour[point] = self.VPtree.get_n_nearest_neighbors(point, self.neighbour_count)
@@ -209,15 +211,13 @@ class ShemaPlayerSamples():
 
     def distance(self, first_point, second_pont):
         """
-
         найти нормализированое евклидово растояние между точками
 
-        :param first_point: id первой точки
-        :type first_point: str
-        :param second_pont: id второй точки
-        :type second_pont: str
-        :return: расстояние
-        :rtype: float
+        Args:
+             first_point: id первой точки
+             second_pont: id второй точки
+        Returns:
+             расстояние
         """
         return sum(((sample[first_point] - sample[second_pont]) / sample.max) ** 2 for sample in self.samples) ** (1/2)
 
@@ -225,12 +225,11 @@ class ShemaPlayerSamples():
         """
         найти достижимое растояние между двумя точками
 
-        :param first_point: id первой точки
-        :type first_point: str
-        :param second_pont: id второй точки
-        :type second_pont: str
-        :return: расстояние
-        :rtype: float
+        Args:
+             first_point: id первой точки
+             second_pont: id второй точки
+        Returns:
+             расстояние
         """
         return max(self.nearest_distance(second_pont), self.distance(first_point, second_pont))
 
@@ -238,10 +237,10 @@ class ShemaPlayerSamples():
         """
         Получить точки в области досягаемости заданной точки
 
-        :param point: id заданной точки
-        :type point: str
-        :return: список id точек в области досягаемости
-        :rtype: [str]
+        Args:
+             point: id заданной точки
+        Returns:
+             список id точек в области досягаемости
         """
         if point not in self.__near_neighbour:
             self.__near_neighbour[point] = self.VPtree.get_n_nearest_neighbors(point, self.neighbour_count)
@@ -252,10 +251,10 @@ class ShemaPlayerSamples():
         '''
         плотность локальной досягаймости заданной точки
 
-        :param point: id заданной точки
-        :type point: 'str'
-        :return: значение плотности
-        :rtype: float
+        Args:
+             point: id заданной точки
+        Returns:
+             значение плотности
         '''
 
         if point not in self.__pre_distance:
@@ -272,10 +271,10 @@ class ShemaPlayerSamples():
         """
         значение локального уровня вброса заданной точки
 
-        :param point: id заданной точки
-        :type point: 'str'
-        :return: локальный уровень вброса
-        :rtype: float
+        Args:
+             point: id заданной точки
+        Returns:
+             локальный уровень вброса
         """
         near_points = self.point_on_nearest_distance(point)
         return sum(self.local_reachability_density(orher_point) for orher_point in near_points) / (
@@ -285,8 +284,8 @@ class ShemaPlayerSamples():
         """
         получить список аномальных данных методом уровня локального вброса
 
-        :return: id аномальных данных
-        :rtype: [str]
+        Returns:
+             id аномальных данных
         """
 
         if len(self.points) < 1:
@@ -307,10 +306,10 @@ class ShemaPlayerSamples():
         """
         преобразовать id данных в координаты соответствующей точки
 
-        :param point:
-        :type point:
-        :return:
-        :rtype:
+        Args:
+             point: идентификатор точки
+        Returns:
+            список координат точки
         """
         return [sample[item] for sample in self.samples]
 
@@ -318,12 +317,11 @@ class ShemaPlayerSamples():
         """
         синхронизировать содержание линейных выборок, удалив все элементы, которых нет во всех выборках
 
-        :param is_load_from_data_base: загружать ли данные из базы данныхесли они не были найдены в файлах
-        :type is_load_from_data_base: bool
-        :param db: база данных для подзагрузки потерянных данных
-        :type db: UserDataBase
-        :return: id удаленных данных
-        :rtype: [str]
+        Args:
+             is_load_from_data_base: загружать ли данные из базы данныхесли они не были найдены в файлах
+             db: база данных для подзагрузки потерянных данных
+        Returns:
+             id удаленных данных
         """
         incomplete_point = []
 

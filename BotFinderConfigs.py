@@ -7,10 +7,10 @@ class ProgramConfig(ABC):
         """
         Проверить существует ли файл кофнигурации
 
-        :param path: путь к файлу уонфигурации, если не указано, то брется путь по умочанию
-        :type path: str
-        :return: True если файл существует, False если файла нет
-        :rtype: bool
+        Args:
+             path: путь к файлу уонфигурации, если не указано, то брется путь по умочанию
+        Returns:
+             True если файл существует, False если файла нет
         """
         if path is None:
             path = self.default_path
@@ -34,10 +34,10 @@ class ProgramConfig(ABC):
         """
         Закгрузать содержимое файла конфигурации
 
-        :param path: путь к файлу уонфигурации, если не указано, то брется путь по умочанию
-        :type path: str
-        :return:
-        :rtype: ProgramConfig
+        Args:
+             path: путь к файлу уонфигурации, если не указано, то брется путь по умочанию
+        Returns:
+            объект хагруженной конфигурации
         """
 
         if path is None:
@@ -53,36 +53,49 @@ class ProgramConfig(ABC):
 class MainConfig(ProgramConfig):
     """класс основной конфигруации программы"""
     def __init__(self):
+        ##импользовать базу данных для получения выборок
         self.parse_samples_from_data_base = True
         '''импользовать базу данных для получения выборок'''
 
+        ##сохранить данные для входа в базу данных
         self.save_data_base_data = True
         """сохранить данные для входа в базу данных"""
+        #сохранить пороль для входа в базу данных
         self.save_data_base_passwor = False
         '''сохранить пороль для входа в базу данных'''
 
+        ##пересоздавать данные выборки из базы данных при каждом запуске программы
         self.refresh_samples_on_load = False
         '''пересоздавать данные выборки из базы данных при каждом запуске программы'''
+        ##пересоздавать данные выборки пользователей из базы данных при каждом запуске программы
         self.refresh_player_on_load = False
         '''пересоздавать данные выборки пользователей из базы данных при каждом запуске программы'''
 
+        ##заново загруить элемент выборки, если он не будет найден в файлах
         self.refresh_single_samples_element_if_missing = True
         '''заново загруить элемент выборки, если он не будет найден в файлах'''
+        ##игнорировать ошибки связанные с отсутсвием элемента выборки
         self.ignore_error_with_session_element_missing = True
         '''игнорировать ошибки связанные с отсутсвием элемента выборки'''
 
+        ##сохранять выборки в файлах
         self.save_session_data = True
         '''сохранять выборки в файлах'''
 
+        ##Название папки для хранения выборок
         self.samples_folder_name = 'Выборки'
         "Название папки для хранения выборок"
+        ##Название файла для хранение выборки игроков
         self.samples_player_name_file = 'игроки.txt'
         "Название файла для хранение выборки игроков"
+        ##название папки для хранения отчета
         self.report_folder_name = 'Отчет'
         "название папки для хранения отчета"
 
+        ##количество соседей в методе локального уровня вброса
         self.count_neighbors = 50
         '''количество соседей в методе локального уровня вброса'''
+        ##порог выброса в методе локального уровня вброса
         self.eject_lip = 1.2
         '''порог выброса в методе локального уровня вброса'''
 
@@ -92,14 +105,19 @@ class MainConfig(ProgramConfig):
 
 
 class DataBaseConfig(ProgramConfig):
-    "класс "
+    "класс конфигурации базы данных"
+
     def __init__(self):
+        ##адрес базы данных
         self.host = 'localhost'
         "адрес базы данных"
+        ##имя базы данных
         self.database = ''
         "имя базы данных"
+        ##пользователь базы данных
         self.user = 'root'
         "пользователь базы данных"
+        ##пароль базы данных
         self.password = ''
         "пароль базы данных"
 
@@ -111,14 +129,12 @@ class DataBaseConfig(ProgramConfig):
         """
         загрузка файла конфигурации базы данных с диалоговыми опциями
 
-        :param path: путь к файлу конифгурации
-        :type path: str
-        :param save_data: сохранять ли данные подключения
-        :type save_data: bool
-        :param save_password: сохранять ли пароль
-        :type save_password: bool
-        :return:
-        :rtype: DataBaseConfig
+        Args:
+             path: путь к файлу конифгурации
+             save_data: сохранять ли данные подключения
+             save_password: сохранять ли пароль
+        Returns:
+            объект загруженной конфигурации
         """
 
         if not self.config_file_is_available() or not save_data:
@@ -157,12 +173,15 @@ class DataBaseConfig(ProgramConfig):
 class SamplesConfig(ProgramConfig):
     """класс кофигурации выборок данных"""
 
+    ##Конфигурация выборки
     sample_model = {'name': None, 'data_base_request': None}
     """Конфигурация выборки"""
 
     def __init__(self):
+        ##выборки
         self.samples_configs = []
         """выборки"""
+        ##запрос к базе данных для получения выборки пользователей
         self.user_query_from_data_base = 'select distinct f_player_id from t_participation'
         """запрос к базе данных для получения выборки пользователей"""
         self.default_sample()

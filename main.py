@@ -10,14 +10,15 @@ from binaryplot import drow_3d_plot, plot_local_ouliter_factor
 class HTMLreport:
     """класс формирования html отчета"""
 
-    def __init__(self, path):
+    def __init__(self, path:str):
         """
-
-        :param path: путь к папке хранения отчета
-        :type path: str
+        Args:
+            path: путь к папке хранения отчета
         """
+        ##путь к папке хранения отчета
         self.path_dir = path
         """путь к папке хранения отчета"""
+        ##Количество фотографий в отчете
         self.__count_of_photos = 0
         """Количество фотографий в отчете"""
 
@@ -33,16 +34,12 @@ class HTMLreport:
         """
         Сформировать содержание html отчета
 
-        :param samples_lable: название выборок
-        :type samples_lable: str
-        :param ejection_data: данные точек выброса
-        :type ejection_data: [[str]]
-        :param other_data: данные точек выброса линейного анализа
-        :type other_data: [[[str]]]
-        :param color_other_data: цвета таблицы точек выброса линейного анализа
-        :type color_other_data: [[str]]
-        :return: текст html отчета
-        :rtype: str
+        Args:
+            samples_lable: название выборок
+            ejection_data: данные точек выброса
+            other_data: данные точек выброса линейного анализа
+            color_other_data: цвета таблицы точек выброса линейного анализа
+            текст html отчета
         """
         htmlrepot = '<html><body>'
         htmlrepot += self.package_title("Отчет о анамалиях в данных пользователей")
@@ -76,10 +73,9 @@ class HTMLreport:
         """
         Упаковать заголовок в html контейнер, с ориентрованием по центру
 
-        :param title: заголовок
-        :type title: str
-        :return: html код
-        :rtype: str
+        Args:
+            title: заголовок
+            html код
         """
         return '<div style="text-align: center;"><h1>'+ title +'</h1></div>'
 
@@ -87,14 +83,11 @@ class HTMLreport:
         """
         Нарисовать графики и сохранить их в папке с отчетом
 
-        :param names: названия выборок
-        :type names: [str]
-        :param segments: отезок для увеличенного графика для каждой выборки
-        :type segments: [(float,float)]
-        :param corupt_points: точки выброса данных
-        :type corupt_points: [[float]]
-        :param clear_points: точки нормальных данных
-        :type clear_points: [[float]]
+        Args:
+            names: названия выборок
+            segments: отезок для увеличенного графика для каждой выборки
+            corupt_points: точки выброса данных
+            clear_points: точки нормальных данных
         """
         figures = []
 
@@ -125,10 +118,10 @@ class HTMLreport:
         """
         Упаковать картинку из папки отчета в контейнер, с ориентрованием по центру
 
-        :param picture_number: номер картиники
-        :type picture_number: int
-        :return: html код
-        :rtype: str
+        Args:
+            picture_number: номер картиники
+        Returns:
+            html код
         """
         return '<img src = "'+ str(picture_number) +'.png">'
 
@@ -136,12 +129,11 @@ class HTMLreport:
         """
         Создать html код блока с заголовком
 
-        :param title: заголовок блока
-        :type title: str
-        :param title: содержание блока
-        :type title: str
-        :return: html код
-        :rtype: str
+        Args:
+            title: заголовок блока
+            content: содержание блока
+        Returns:
+            html код
         """
         return '<div style="width:100%; border: 1px solid black;"><div style="text-align: center;"><h3>'+ title +'</h1></div> '+content+' </div>'
 
@@ -149,10 +141,9 @@ class HTMLreport:
         """
         Упаковать две картинки из папки отчета в контейнер в один блок
 
-        :param picture_number: номер картиники
-        :type picture_number: int
-        :return: html код
-        :rtype: str
+            picture_number: номер картиники
+        Returns:
+            html код
         """
         return '<div style="display: flex; Justify-content: space-around;">' + self.package_img_bloc(picture_number_one) + self.package_img_bloc(picture_number_two) + '</div>'
 
@@ -160,16 +151,12 @@ class HTMLreport:
         """
         Сформировать html код таблицы данных
 
-        :param title: заголовок таблицы
-        :type title: str
-        :param titles_column: название колонок таблицы
-        :type titles_column: [str]
-        :param data: содкржание таблицы
-        :type data: [[str]]
-        :param color: цвета строк таблицы
-        :type color: [[str]]
-        :return: html код
-        :rtype: str
+             title: заголовок таблицы
+             titles_column: название колонок таблицы
+             data: содкржание таблицы
+             color: цвета строк таблицы
+        Returns:
+            html код
         """
         if color is None:
             color = ['white' for _ in range(len(data))]
@@ -194,11 +181,15 @@ class BotFinder:
 
     def __init__(self):
         is_first_launch = BotFinder.is_first_start()
+        ##оснвая кофигурация программы
         self.main_config = MainConfig().load_or_create()
+        ##объект подключение к базе данных
         self.data_base = None
         if not is_first_launch:
             self.try_load_data_base()
+        ##конфигурация выборок
         self.samples_config = SamplesConfig().load_or_create()
+        ##набор одномерных выборок
         self.shema = ShemaPlayerSamples([],self.main_config.count_neighbors, self.main_config.eject_lip)
         self.load_samples_from_config_file()
         self.prepare_work_place()
@@ -208,8 +199,7 @@ class BotFinder:
         """
         проверка на первый запуск программы. Если в папке с программой отсутсвует основной кофигурационный файл она считается впервые запущенной
 
-        :return: True если программа запущена впервые иначе false
-        :rtype: bool
+        Returns: True если программа запущена впервые иначе false
         """
         if os.path.exists(MainConfig().default_path):
             return False
@@ -218,9 +208,8 @@ class BotFinder:
     def load_samples_from_config_file(self):
         """
         загрузить данные о выборках из конфигурации
-
-        :param cfg: конфигурация выборок
-        :type cfg: SamplesConfig
+        Args:
+             cfg: конфигурация выборок
         """
         for i in self.samples_config.samples_configs:
             self.shema.append_sample(i['name'], i['data_base_request'])
@@ -266,8 +255,8 @@ class BotFinder:
         """
         Загрузить список пользователей из файла или базы данных
 
-        :return: список идентификаторов игроков
-        :rtype: [str]
+        Returns:
+             список идентификаторов игроков
         """
         list_of_player = []
         if self.main_config.save_session_data:

@@ -5,16 +5,13 @@ def plot_local_ouliter_factor(names, segments, corupt_points, clear_points):
     """
     пострение графика визвуально отоброажающего методов локального выброса и метода тьюки для двух измерений
 
-    :param names: название выборок
-    :type names: (str, str)
-    :param segments: границы графика
-    :type segments: ((float,float),(float,float))
-    :param corupt_points: значения выброса
-    :type corupt_points: ([float],[float])
-    :param clear_points: нормальные значение
-    :type clear_points: ([float],[float])
-    :return: фигура matplotlib с нарисованным графиком
-    :rtype: fig
+    Args:
+         names: название выборок
+         segments: границы графика
+         corupt_points: значения выброса
+         clear_points: нормальные значение
+    Returns:
+         фигура matplotlib с нарисованным графиком
     """
     fig = plt.figure()
     tuple_plot = plt.subplot2grid((3, 3), (0, 1), rowspan=2, colspan=2)
@@ -53,16 +50,13 @@ def drow_3d_plot(names, segments, corupt_points, clear_points):
     """
     пострение графика визвуально отоброажающего методов локального выброса  для трех измерений
 
-    :param names: название выборок
-    :type names: (str, str)
-    :param segments: границы графика
-    :type segments: ((float,float),(float,float))
-    :param corupt_points: точки выброса
-    :type corupt_points: [(float,float,float)]
-    :param clear_points: нормальные точки
-    :type clear_points: []float]
-    :return: фигура matplotlib с нарисованным графиком
-    :rtype: fig
+    Args:
+         names: название выборок
+         segments: границы графика
+         corupt_points: точки выброса
+         clear_points: нормальные точки
+    Returns:
+          фигура matplotlib с нарисованным графиком
     """
     fig = plt.figure(figsize=(15, 15))
     ax =  fig.add_subplot(111, projection='3d')
