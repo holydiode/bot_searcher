@@ -42,7 +42,6 @@ var menudata={children:[
 {text:"d",url:"functions.html#index_d"},
 {text:"e",url:"functions.html#index_e"},
 {text:"g",url:"functions.html#index_g"},
-{text:"h",url:"functions.html#index_h"},
 {text:"i",url:"functions.html#index_i"},
 {text:"l",url:"functions.html#index_l"},
 {text:"m",url:"functions.html#index_m"},
@@ -53,7 +52,6 @@ var menudata={children:[
 {text:"r",url:"functions.html#index_r"},
 {text:"s",url:"functions.html#index_s"},
 {text:"t",url:"functions.html#index_t"},
-{text:"u",url:"functions.html#index_u"},
 {text:"v",url:"functions.html#index_v"}]},
 {text:"Функции",url:"functions_func.html",children:[
 {text:"_",url:"functions_func.html#index__5F"},
@@ -72,19 +70,6 @@ var menudata={children:[
 {text:"r",url:"functions_func.html#index_r"},
 {text:"t",url:"functions_func.html#index_t"},
 {text:"v",url:"functions_func.html#index_v"}]},
-{text:"Переменные",url:"functions_vars.html",children:[
-{text:"c",url:"functions_vars.html#index_c"},
-{text:"d",url:"functions_vars.html#index_d"},
-{text:"e",url:"functions_vars.html#index_e"},
-{text:"h",url:"functions_vars.html#index_h"},
-{text:"i",url:"functions_vars.html#index_i"},
-{text:"l",url:"functions_vars.html#index_l"},
-{text:"m",url:"functions_vars.html#index_m"},
-{text:"n",url:"functions_vars.html#index_n"},
-{text:"p",url:"functions_vars.html#index_p"},
-{text:"r",url:"functions_vars.html#index_r"},
-{text:"s",url:"functions_vars.html#index_s"},
-{text:"u",url:"functions_vars.html#index_u"},
-{text:"v",url:"functions_vars.html#index_v"}]}]}]},
+{text:"Переменные",url:"functions_vars.html"}]}]},
 {text:"Файлы",url:"files.html",children:[
 {text:"Файлы",url:"files.html"}]}]}
