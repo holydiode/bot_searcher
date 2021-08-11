@@ -4,7 +4,7 @@ import shutil
 from BotFinderConfigs import MainConfig, DataBaseConfig, SamplesConfig
 from Samples import ShemaPlayerSamples
 from UserDataBase import UserDataBase
-from binaryplot import drow_3d_plot, plot_local_ouliter_factor
+from BinaryPlot import drow_3d_plot, plot_local_ouliter_factor
 
 
 class HTMLreport:

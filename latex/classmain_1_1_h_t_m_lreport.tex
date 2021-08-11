@@ -1,0 +1,246 @@
+\hypertarget{classmain_1_1_h_t_m_lreport}{}\doxysection{Класс main.\+H\+T\+M\+Lreport}
+\label{classmain_1_1_h_t_m_lreport}\index{main.HTMLreport@{main.HTMLreport}}
+
+
+класс формирования html отчета  
+
+
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_a60004aad5a5f4d72fe40c8933e461cbb}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str path)
+\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_a13b43d65ffea71585fe86755b190ddac}{prepare\+\_\+dir}} (self)
+\begin{DoxyCompactList}\small\item\em Подготовить папку для хранения отчета, в случае если папка отчета уже существует, удаить её и создать новую. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_a89ad74426c6a5b7da33ecb37a47fbcb8}{make\+\_\+report}} (self, samples\+\_\+lable, ejection\+\_\+data, other\+\_\+data, color\+\_\+other\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Сформировать содержание html отчета \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_acc46d654d5551d581f6a30f2b334e881}{package\+\_\+title}} (self, title)
+\begin{DoxyCompactList}\small\item\em Упаковать заголовок в html контейнер, с ориентрованием по центру \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_a368f3900005d45bc85f7197b2807e86d}{prepare\+\_\+all\+\_\+image}} (self, names, segments, corupt\+\_\+points, clear\+\_\+points)
+\begin{DoxyCompactList}\small\item\em Нарисовать графики и сохранить их в папке с отчетом \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_ad97c39186df773aa76e80a5441ab06bc}{package\+\_\+img\+\_\+bloc}} (self, picture\+\_\+number)
+\begin{DoxyCompactList}\small\item\em Упаковать картинку из папки отчета в контейнер, с ориентрованием по центру \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_aa7949b194a3f7a11acb729345295270a}{pacage\+\_\+bloc}} (self, title, content)
+\begin{DoxyCompactList}\small\item\em Создать html код блока с заголовком \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_ac0c422282865530d3a2db92204dd89cf}{package\+\_\+img\+\_\+bloc\+\_\+tuple}} (self, picture\+\_\+number\+\_\+one, picture\+\_\+number\+\_\+two)
+\begin{DoxyCompactList}\small\item\em Упаковать две картинки из папки отчета в контейнер в один блок \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmain_1_1_h_t_m_lreport_a719da30a96f35f0431c478e2ee16e54c}{package\+\_\+table}} (self, title, titles\+\_\+column, data, color=None)
+\begin{DoxyCompactList}\small\item\em Сформировать html код таблицы данных \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmain_1_1_h_t_m_lreport_a1d27626a28f683dd7d7a16a6f390352d}{path\+\_\+dir}}
+\begin{DoxyCompactList}\small\item\em путь к папке хранения отчета \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+класс формирования html отчета 
+
+См. определение в файле main.\+py строка 13
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_a60004aad5a5f4d72fe40c8933e461cbb}\label{classmain_1_1_h_t_m_lreport_a60004aad5a5f4d72fe40c8933e461cbb}} 
+\index{main.HTMLreport@{main.HTMLreport}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Аргументы}
+{\em path} & путь к папке хранения отчета \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле main.\+py строка 19
+
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_a89ad74426c6a5b7da33ecb37a47fbcb8}\label{classmain_1_1_h_t_m_lreport_a89ad74426c6a5b7da33ecb37a47fbcb8}} 
+\index{main.HTMLreport@{main.HTMLreport}!make\_report@{make\_report}}
+\index{make\_report@{make\_report}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{make\_report()}{make\_report()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+make\+\_\+report (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{samples\+\_\+lable,  }\item[{}]{ejection\+\_\+data,  }\item[{}]{other\+\_\+data,  }\item[{}]{color\+\_\+other\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Сформировать содержание html отчета 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em samples\+\_\+lable} & название выборок \\
+\hline
+{\em ejection\+\_\+data} & данные точек выброса \\
+\hline
+{\em other\+\_\+data} & данные точек выброса линейного анализа \\
+\hline
+{\em color\+\_\+other\+\_\+data} & цвета таблицы точек выброса линейного анализа текст html отчета \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле main.\+py строка 45
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_aa7949b194a3f7a11acb729345295270a}\label{classmain_1_1_h_t_m_lreport_aa7949b194a3f7a11acb729345295270a}} 
+\index{main.HTMLreport@{main.HTMLreport}!pacage\_bloc@{pacage\_bloc}}
+\index{pacage\_bloc@{pacage\_bloc}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{pacage\_bloc()}{pacage\_bloc()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+pacage\+\_\+bloc (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{title,  }\item[{}]{content }\end{DoxyParamCaption})}
+
+
+
+Создать html код блока с заголовком 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em title} & заголовок блока \\
+\hline
+{\em content} & содержание блока \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+html код 
+\end{DoxyReturn}
+
+
+См. определение в файле main.\+py строка 139
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_ad97c39186df773aa76e80a5441ab06bc}\label{classmain_1_1_h_t_m_lreport_ad97c39186df773aa76e80a5441ab06bc}} 
+\index{main.HTMLreport@{main.HTMLreport}!package\_img\_bloc@{package\_img\_bloc}}
+\index{package\_img\_bloc@{package\_img\_bloc}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{package\_img\_bloc()}{package\_img\_bloc()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+package\+\_\+img\+\_\+bloc (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{picture\+\_\+number }\end{DoxyParamCaption})}
+
+
+
+Упаковать картинку из папки отчета в контейнер, с ориентрованием по центру 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em picture\+\_\+number} & номер картиники \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+html код 
+\end{DoxyReturn}
+
+
+См. определение в файле main.\+py строка 127
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_ac0c422282865530d3a2db92204dd89cf}\label{classmain_1_1_h_t_m_lreport_ac0c422282865530d3a2db92204dd89cf}} 
+\index{main.HTMLreport@{main.HTMLreport}!package\_img\_bloc\_tuple@{package\_img\_bloc\_tuple}}
+\index{package\_img\_bloc\_tuple@{package\_img\_bloc\_tuple}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{package\_img\_bloc\_tuple()}{package\_img\_bloc\_tuple()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+package\+\_\+img\+\_\+bloc\+\_\+tuple (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{picture\+\_\+number\+\_\+one,  }\item[{}]{picture\+\_\+number\+\_\+two }\end{DoxyParamCaption})}
+
+
+
+Упаковать две картинки из папки отчета в контейнер в один блок 
+
+picture\+\_\+number номер картиники \begin{DoxyReturn}{Возвращает}
+html код 
+\end{DoxyReturn}
+
+
+См. определение в файле main.\+py строка 149
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_a719da30a96f35f0431c478e2ee16e54c}\label{classmain_1_1_h_t_m_lreport_a719da30a96f35f0431c478e2ee16e54c}} 
+\index{main.HTMLreport@{main.HTMLreport}!package\_table@{package\_table}}
+\index{package\_table@{package\_table}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{package\_table()}{package\_table()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+package\+\_\+table (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{title,  }\item[{}]{titles\+\_\+column,  }\item[{}]{data,  }\item[{}]{color = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+Сформировать html код таблицы данных 
+
+title заголовок таблицы titles\+\_\+column название колонок таблицы data содкржание таблицы color цвета строк таблицы \begin{DoxyReturn}{Возвращает}
+html код 
+\end{DoxyReturn}
+
+
+См. определение в файле main.\+py строка 162
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_acc46d654d5551d581f6a30f2b334e881}\label{classmain_1_1_h_t_m_lreport_acc46d654d5551d581f6a30f2b334e881}} 
+\index{main.HTMLreport@{main.HTMLreport}!package\_title@{package\_title}}
+\index{package\_title@{package\_title}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{package\_title()}{package\_title()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+package\+\_\+title (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{title }\end{DoxyParamCaption})}
+
+
+
+Упаковать заголовок в html контейнер, с ориентрованием по центру 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em title} & заголовок html код \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле main.\+py строка 81
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_a368f3900005d45bc85f7197b2807e86d}\label{classmain_1_1_h_t_m_lreport_a368f3900005d45bc85f7197b2807e86d}} 
+\index{main.HTMLreport@{main.HTMLreport}!prepare\_all\_image@{prepare\_all\_image}}
+\index{prepare\_all\_image@{prepare\_all\_image}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{prepare\_all\_image()}{prepare\_all\_image()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+prepare\+\_\+all\+\_\+image (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{names,  }\item[{}]{segments,  }\item[{}]{corupt\+\_\+points,  }\item[{}]{clear\+\_\+points }\end{DoxyParamCaption})}
+
+
+
+Нарисовать графики и сохранить их в папке с отчетом 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em names} & названия выборок \\
+\hline
+{\em segments} & отезок для увеличенного графика для каждой выборки \\
+\hline
+{\em corupt\+\_\+points} & точки выброса данных \\
+\hline
+{\em clear\+\_\+points} & точки нормальных данных \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле main.\+py строка 93
+
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_a13b43d65ffea71585fe86755b190ddac}\label{classmain_1_1_h_t_m_lreport_a13b43d65ffea71585fe86755b190ddac}} 
+\index{main.HTMLreport@{main.HTMLreport}!prepare\_dir@{prepare\_dir}}
+\index{prepare\_dir@{prepare\_dir}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{prepare\_dir()}{prepare\_dir()}}
+{\footnotesize\ttfamily def main.\+H\+T\+M\+Lreport.\+prepare\+\_\+dir (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Подготовить папку для хранения отчета, в случае если папка отчета уже существует, удаить её и создать новую. 
+
+
+
+См. определение в файле main.\+py строка 30
+
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{classmain_1_1_h_t_m_lreport_a1d27626a28f683dd7d7a16a6f390352d}\label{classmain_1_1_h_t_m_lreport_a1d27626a28f683dd7d7a16a6f390352d}} 
+\index{main.HTMLreport@{main.HTMLreport}!path\_dir@{path\_dir}}
+\index{path\_dir@{path\_dir}!main.HTMLreport@{main.HTMLreport}}
+\doxysubsubsection{\texorpdfstring{path\_dir}{path\_dir}}
+{\footnotesize\ttfamily main.\+H\+T\+M\+Lreport.\+path\+\_\+dir}
+
+
+
+путь к папке хранения отчета 
+
+
+
+См. определение в файле main.\+py строка 21
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{main_8py}{main.\+py}}\end{DoxyCompactItemize}

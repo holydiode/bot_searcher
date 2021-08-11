@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.18"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>BotSearcher: Исходный файл VPTree.py</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">BotSearcher
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.8.18 -->
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',false,false,'search.php','Поиск');
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">VPTree.py</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_v_p_tree_8py.html">См. документацию.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="namespace_v_p_tree.html">    1</a></span>&#160; </div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;C:\Users\Nik\PycharmProjects\bot_searcher&gt;doxypypy -a -c <span class="stringliteral">&quot;C:/Users/Nik/PycharmProjects/bot_searcher/VPTree.py&quot;</span> </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">import</span> statistics</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_v_p_tree_1_1_v_p_tree.html">VPTree</a>:</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a79de94dbc8ba94f50a99ea11e87504ed">   12</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a79de94dbc8ba94f50a99ea11e87504ed">__init__</a>(self, points, distance):</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a3d2a506be3c7583ab1b6b1979c7c4f85">   14</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a3d2a506be3c7583ab1b6b1979c7c4f85">left</a> = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a7bb62396608bf656c899c949ea649bc7">   16</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a7bb62396608bf656c899c949ea649bc7">right</a> = <span class="keywordtype">None</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a23f262699571916ad1cb2956e223e365">   18</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a23f262699571916ad1cb2956e223e365">left_min</a> = float(<span class="stringliteral">&#39;inf&#39;</span>)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a6ade11defe2f2a680244ac8e97399cd5">   20</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a6ade11defe2f2a680244ac8e97399cd5">left_max</a> = 0</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a4d9bd5b839a966376bf5518b7f8492b2">   22</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a4d9bd5b839a966376bf5518b7f8492b2">right_min</a> = float(<span class="stringliteral">&#39;inf&#39;</span>)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a42af2dbfcdb6503612851103b3a9811d">   24</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a42af2dbfcdb6503612851103b3a9811d">right_max</a> = 0</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">   26</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">distance</a> = distance</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#a2313bcc6c195588fe4458e9ee83355fa">   28</a></span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a2313bcc6c195588fe4458e9ee83355fa">vantage_point</a> = points[0]</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> len(points) == 1:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">return</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a19cb6a059d20d98f8b7e5cfa765958df">_connect_child</a>(points[1:])</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">def </span>_connect_child(self, points):</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        distances = [self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">distance</a>(self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a2313bcc6c195588fe4458e9ee83355fa">vantage_point</a>, point) <span class="keywordflow">for</span> point <span class="keywordflow">in</span> points]</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        median = statistics.median(distances)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        left_points = []</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        right_points = []</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> point, distance <span class="keywordflow">in</span> zip(points, distances):</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">if</span> distance &gt;= median:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a4d9bd5b839a966376bf5518b7f8492b2">right_min</a> = min(distance, self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a4d9bd5b839a966376bf5518b7f8492b2">right_min</a>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                <span class="keywordflow">if</span> distance &gt; self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a42af2dbfcdb6503612851103b3a9811d">right_max</a>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                    self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a42af2dbfcdb6503612851103b3a9811d">right_max</a> = distance</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                    right_points.insert(0, point)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                    right_points.append(point)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a23f262699571916ad1cb2956e223e365">left_min</a> = min(distance, self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a23f262699571916ad1cb2956e223e365">left_min</a>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                <span class="keywordflow">if</span> distance &gt; self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a6ade11defe2f2a680244ac8e97399cd5">left_max</a>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                    self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a6ade11defe2f2a680244ac8e97399cd5">left_max</a> = distance</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                    left_points.insert(0, point)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                <span class="keywordflow">else</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                    left_points.append(point)</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> len(left_points) &gt; 0:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a3d2a506be3c7583ab1b6b1979c7c4f85">left</a> = <a class="code" href="class_v_p_tree_1_1_v_p_tree.html">VPTree</a>(left_points, self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">distance</a>)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span> len(right_points) &gt; 0:</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a7bb62396608bf656c899c949ea649bc7">right</a> = <a class="code" href="class_v_p_tree_1_1_v_p_tree.html">VPTree</a>(right_points, self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">distance</a>)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_v_p_tree_1_1_v_p_tree.html#ad9d303fcfa560d3a7c142d465a17be34">   81</a></span>&#160;    <span class="keyword">def </span><a class="code" href="class_v_p_tree_1_1_v_p_tree.html#ad9d303fcfa560d3a7c142d465a17be34">get_n_nearest_neighbors</a>(self, id_point, count_neighbors):</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        neighbors = []</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        nodes_to_visit = [(self, 0)]</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        furthest_distance = float(<span class="stringliteral">&#39;inf&#39;</span>)</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordflow">while</span> len(nodes_to_visit) &gt; 0:</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            node, d0 = nodes_to_visit.pop(0)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">if</span> node <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">or</span> d0 &gt; furthest_distance:</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            distance = self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">distance</a>(id_point, node.vantage_point)</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            <span class="keywordflow">if</span> distance &lt; furthest_distance <span class="keywordflow">and</span> node != self:</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                neighbors.append((distance, node.vantage_point))</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                neighbors.sort(key=<span class="keyword">lambda</span> x: x[0])</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                <span class="keywordflow">if</span> len(neighbors) &gt; count_neighbors:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                    neighbors.pop()</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                furthest_distance = neighbors[-1][0]</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">if</span> self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a3d2a506be3c7583ab1b6b1979c7c4f85">left</a> <span class="keywordflow">is</span> <span class="keywordtype">None</span> <span class="keywordflow">and</span> self.<a class="code" href="class_v_p_tree_1_1_v_p_tree.html#a7bb62396608bf656c899c949ea649bc7">right</a> <span class="keywordflow">is</span> <span class="keywordtype">None</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keywordflow">continue</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">if</span> node.left_min &lt;= distance &lt;= node.left_max:</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                nodes_to_visit.insert(0, (node.left, 0))</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            <span class="keywordflow">elif</span> node.left_min - furthest_distance &lt;= distance &lt;= node.left_max + furthest_distance:</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                nodes_to_visit.append(</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    (node.left, node.left_min - distance <span class="keywordflow">if</span> distance &lt; node.left_min <span class="keywordflow">else</span> distance - node.left_max))</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keywordflow">if</span> node.right_min &lt;= distance &lt;= node.right_max:</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                nodes_to_visit.insert(0, (node.right, 0))</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;            <span class="keywordflow">elif</span> node.right_min - furthest_distance &lt;= distance &lt;= node.right_max + furthest_distance:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                nodes_to_visit.append(</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    (node.right, node.right_min - distance <span class="keywordflow">if</span> distance &lt; node.right_min <span class="keywordflow">else</span> distance - node.right_max))</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">return</span> [neighbor[1] <span class="keywordflow">for</span> neighbor <span class="keywordflow">in</span> neighbors]</div>
+</div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_acd4b358d827f99013ac4eb390f915ffd"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#acd4b358d827f99013ac4eb390f915ffd">VPTree.VPTree.distance</a></div><div class="ttdeci">distance</div><div class="ttdoc">функция растояния</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00026">VPTree.py:26</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a2313bcc6c195588fe4458e9ee83355fa"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a2313bcc6c195588fe4458e9ee83355fa">VPTree.VPTree.vantage_point</a></div><div class="ttdeci">vantage_point</div><div class="ttdoc">идетификатор точки обзора</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00028">VPTree.py:28</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a19cb6a059d20d98f8b7e5cfa765958df"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a19cb6a059d20d98f8b7e5cfa765958df">VPTree.VPTree._connect_child</a></div><div class="ttdeci">def _connect_child(self, points)</div><div class="ttdoc">расчитать потомков текущего узла дерева</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00043">VPTree.py:43</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a3d2a506be3c7583ab1b6b1979c7c4f85"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a3d2a506be3c7583ab1b6b1979c7c4f85">VPTree.VPTree.left</a></div><div class="ttdeci">left</div><div class="ttdoc">левый сосед</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00014">VPTree.py:14</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a79de94dbc8ba94f50a99ea11e87504ed"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a79de94dbc8ba94f50a99ea11e87504ed">VPTree.VPTree.__init__</a></div><div class="ttdeci">def __init__(self, points, distance)</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00012">VPTree.py:12</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a42af2dbfcdb6503612851103b3a9811d"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a42af2dbfcdb6503612851103b3a9811d">VPTree.VPTree.right_max</a></div><div class="ttdeci">right_max</div><div class="ttdoc">максимальное растояние до потомков в правом поддереве</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00024">VPTree.py:24</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_ad9d303fcfa560d3a7c142d465a17be34"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#ad9d303fcfa560d3a7c142d465a17be34">VPTree.VPTree.get_n_nearest_neighbors</a></div><div class="ttdeci">def get_n_nearest_neighbors(self, id_point, count_neighbors)</div><div class="ttdoc">Найти n ближайших соседей</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00081">VPTree.py:81</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a6ade11defe2f2a680244ac8e97399cd5"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a6ade11defe2f2a680244ac8e97399cd5">VPTree.VPTree.left_max</a></div><div class="ttdeci">left_max</div><div class="ttdoc">максимальное растояние до потомков в левом поддереве</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00020">VPTree.py:20</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a7bb62396608bf656c899c949ea649bc7"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a7bb62396608bf656c899c949ea649bc7">VPTree.VPTree.right</a></div><div class="ttdeci">right</div><div class="ttdoc">правый сосед</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00016">VPTree.py:16</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a23f262699571916ad1cb2956e223e365"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a23f262699571916ad1cb2956e223e365">VPTree.VPTree.left_min</a></div><div class="ttdeci">left_min</div><div class="ttdoc">минимальное растояние до потомков в левом поддереве</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00018">VPTree.py:18</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html">VPTree.VPTree</a></div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00006">VPTree.py:6</a></div></div>
+<div class="ttc" id="aclass_v_p_tree_1_1_v_p_tree_html_a4d9bd5b839a966376bf5518b7f8492b2"><div class="ttname"><a href="class_v_p_tree_1_1_v_p_tree.html#a4d9bd5b839a966376bf5518b7f8492b2">VPTree.VPTree.right_min</a></div><div class="ttdeci">right_min</div><div class="ttdoc">минимальное растояние до потомков в правом поддереве</div><div class="ttdef"><b>Definition:</b> <a href="_v_p_tree_8py_source.html#l00022">VPTree.py:22</a></div></div>
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Создано системой &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.18
+</small></address>
+</body>
+</html>

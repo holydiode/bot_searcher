@@ -1,0 +1,387 @@
+\hypertarget{class_samples_1_1_shema_player_samples}{}\doxysection{Класс Samples.\+Shema\+Player\+Samples}
+\label{class_samples_1_1_shema_player_samples}\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+
+
+класс для комплексного анализа одномерных выборок  
+
+
+\doxysubsection*{Открытые члены}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_aadedcd44c6d5096180a3350c5fd0850e}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{class_samples_1_1_shema_player_samples_aee81df792ab7cd8008fafe2ac2869081}{points}}, \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a2aa51de473941a9cf0891c856abb60ec}{neighbour\+\_\+count}}, \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a0241da1057bd090a02919684690a0234}{lip}})
+\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a068d5056d7eeccbb9e542b0b185f5f75}{append\+\_\+sample}} (self, str name, str query=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em доабвить выборку \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a0623de01e3bd770950d13d7688eb8eef}{nearest\+\_\+distance}} (self, point)
+\begin{DoxyCompactList}\small\item\em вернуть растояние к ближайшей n-\/ой точеке \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a1d245b738c6012b3440b12adeabbc6f4}{distance}} (self, first\+\_\+point, second\+\_\+pont)
+\begin{DoxyCompactList}\small\item\em найти нормализированое евклидово растояние между точками \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a096d686f2454e26538b68eb758667537}{reachability\+\_\+distance}} (self, first\+\_\+point, second\+\_\+pont)
+\begin{DoxyCompactList}\small\item\em найти достижимое растояние между двумя точками \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a1ea3bc80ebf483a20d401f099b2211cd}{point\+\_\+on\+\_\+nearest\+\_\+distance}} (self, point)
+\begin{DoxyCompactList}\small\item\em Получить точки в области досягаемости заданной точки \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a0d3ef738ee6d27695ac0c975e0f0b0ee}{local\+\_\+reachability\+\_\+density}} (self, point)
+\begin{DoxyCompactList}\small\item\em плотность локальной досягаймости заданной точки \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a381987376aed82332adf4f4a460e1164}{local\+\_\+ouliter\+\_\+factor}} (self, point)
+\begin{DoxyCompactList}\small\item\em значение локального уровня вброса заданной точки \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a650bb34892d212d2c19b617e4644ca40}{outliers\+\_\+point}} (self)
+\begin{DoxyCompactList}\small\item\em получить список аномальных данных методом уровня локального вброса \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_abe3b3e91b0ee95566601c44c7248d216}{\+\_\+\+\_\+getitem\+\_\+\+\_\+}} (self, item)
+\begin{DoxyCompactList}\small\item\em преобразовать id данных в координаты соответствующей точки \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{class_samples_1_1_shema_player_samples_a01b5bb34708d7d8865c0945a12b85e02}{clear\+\_\+from\+\_\+incomplete}} (self, is\+\_\+load\+\_\+from\+\_\+data\+\_\+base=True, User\+Data\+Base db=None)
+\begin{DoxyCompactList}\small\item\em синхронизировать содержание линейных выборок, удалив все элементы, которых нет во всех выборках \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Открытые атрибуты}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_samples_1_1_shema_player_samples_aee81df792ab7cd8008fafe2ac2869081}{points}}
+\begin{DoxyCompactList}\small\item\em id точек, в выборках \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_samples_1_1_shema_player_samples_ab50e1fcc0ffe20bec4e80a2d04965794}{samples}}
+\begin{DoxyCompactList}\small\item\em линейные выборки данных \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_samples_1_1_shema_player_samples_a2aa51de473941a9cf0891c856abb60ec}{neighbour\+\_\+count}}
+\begin{DoxyCompactList}\small\item\em количество соседей в метоле локального вброса \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_samples_1_1_shema_player_samples_ae879ede367baf0f23848116e8b6f1ed3}{vp\+\_\+tree}}
+\begin{DoxyCompactList}\small\item\em Дерево точек обзора \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_samples_1_1_shema_player_samples_a0241da1057bd090a02919684690a0234}{lip}}
+\begin{DoxyCompactList}\small\item\em порог, за которым данные являются анмальными \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_samples_1_1_shema_player_samples_a6045ff3f6908a36ac3523c79ae8a02f1}{V\+Ptree}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+класс для комплексного анализа одномерных выборок 
+
+См. определение в файле Samples.\+py строка 160
+
+
+
+\doxysubsection{Конструктор(ы)}
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_aadedcd44c6d5096180a3350c5fd0850e}\label{class_samples_1_1_shema_player_samples_aadedcd44c6d5096180a3350c5fd0850e}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{points,  }\item[{}]{neighbour\+\_\+count,  }\item[{}]{lip }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Аргументы}
+{\em points} & id данных в выборках \\
+\hline
+{\em neighbour\+\_\+count} & количество соседей в методе локального вброса \\
+\hline
+{\em lip} & порог, за которым данные являются анмальными \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле Samples.\+py строка 168
+
+
+
+\doxysubsection{Методы}
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_abe3b3e91b0ee95566601c44c7248d216}\label{class_samples_1_1_shema_player_samples_abe3b3e91b0ee95566601c44c7248d216}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!\_\_getitem\_\_@{\_\_getitem\_\_}}
+\index{\_\_getitem\_\_@{\_\_getitem\_\_}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{\_\_getitem\_\_()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{item }\end{DoxyParamCaption})}
+
+
+
+преобразовать id данных в координаты соответствующей точки 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em point} & идентификатор точки \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+список координат точки 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 315
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a068d5056d7eeccbb9e542b0b185f5f75}\label{class_samples_1_1_shema_player_samples_a068d5056d7eeccbb9e542b0b185f5f75}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!append\_sample@{append\_sample}}
+\index{append\_sample@{append\_sample}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{append\_sample()}{append\_sample()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+append\+\_\+sample (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{name,  }\item[{str }]{query = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+доабвить выборку 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em name} & имя выборки \\
+\hline
+{\em name} & запрос выборки \\
+\hline
+\end{DoxyParams}
+
+
+См. определение в файле Samples.\+py строка 197
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a01b5bb34708d7d8865c0945a12b85e02}\label{class_samples_1_1_shema_player_samples_a01b5bb34708d7d8865c0945a12b85e02}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!clear\_from\_incomplete@{clear\_from\_incomplete}}
+\index{clear\_from\_incomplete@{clear\_from\_incomplete}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{clear\_from\_incomplete()}{clear\_from\_incomplete()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+clear\+\_\+from\+\_\+incomplete (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{is\+\_\+load\+\_\+from\+\_\+data\+\_\+base = {\ttfamily True},  }\item[{User\+Data\+Base }]{db = {\ttfamily None} }\end{DoxyParamCaption})}
+
+
+
+синхронизировать содержание линейных выборок, удалив все элементы, которых нет во всех выборках 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em is\+\_\+load\+\_\+from\+\_\+data\+\_\+base} & загружать ли данные из базы данныхесли они не были найдены в файлах \\
+\hline
+{\em db} & база данных для подзагрузки потерянных данных \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+id удаленных данных 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 327
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a1d245b738c6012b3440b12adeabbc6f4}\label{class_samples_1_1_shema_player_samples_a1d245b738c6012b3440b12adeabbc6f4}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!distance@{distance}}
+\index{distance@{distance}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{distance()}{distance()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+distance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{first\+\_\+point,  }\item[{}]{second\+\_\+pont }\end{DoxyParamCaption})}
+
+
+
+найти нормализированое евклидово растояние между точками 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em first\+\_\+point} & id первой точки \\
+\hline
+{\em second\+\_\+pont} & id второй точки \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+расстояние 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 223
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a381987376aed82332adf4f4a460e1164}\label{class_samples_1_1_shema_player_samples_a381987376aed82332adf4f4a460e1164}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!local\_ouliter\_factor@{local\_ouliter\_factor}}
+\index{local\_ouliter\_factor@{local\_ouliter\_factor}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{local\_ouliter\_factor()}{local\_ouliter\_factor()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+local\+\_\+ouliter\+\_\+factor (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{point }\end{DoxyParamCaption})}
+
+
+
+значение локального уровня вброса заданной точки 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em point} & id заданной точки \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+локальный уровень вброса 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 280
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a0d3ef738ee6d27695ac0c975e0f0b0ee}\label{class_samples_1_1_shema_player_samples_a0d3ef738ee6d27695ac0c975e0f0b0ee}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!local\_reachability\_density@{local\_reachability\_density}}
+\index{local\_reachability\_density@{local\_reachability\_density}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{local\_reachability\_density()}{local\_reachability\_density()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+local\+\_\+reachability\+\_\+density (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{point }\end{DoxyParamCaption})}
+
+
+
+плотность локальной досягаймости заданной точки 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em point} & id заданной точки \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+значение плотности 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 260
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a0623de01e3bd770950d13d7688eb8eef}\label{class_samples_1_1_shema_player_samples_a0623de01e3bd770950d13d7688eb8eef}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!nearest\_distance@{nearest\_distance}}
+\index{nearest\_distance@{nearest\_distance}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{nearest\_distance()}{nearest\_distance()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+nearest\+\_\+distance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{point }\end{DoxyParamCaption})}
+
+
+
+вернуть растояние к ближайшей n-\/ой точеке 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em point} & id набора данных (точки) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+список id ближайших данных (точек) 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 208
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a650bb34892d212d2c19b617e4644ca40}\label{class_samples_1_1_shema_player_samples_a650bb34892d212d2c19b617e4644ca40}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!outliers\_point@{outliers\_point}}
+\index{outliers\_point@{outliers\_point}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{outliers\_point()}{outliers\_point()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+outliers\+\_\+point (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+получить список аномальных данных методом уровня локального вброса 
+
+\begin{DoxyReturn}{Возвращает}
+id аномальных данных 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 291
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a1ea3bc80ebf483a20d401f099b2211cd}\label{class_samples_1_1_shema_player_samples_a1ea3bc80ebf483a20d401f099b2211cd}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!point\_on\_nearest\_distance@{point\_on\_nearest\_distance}}
+\index{point\_on\_nearest\_distance@{point\_on\_nearest\_distance}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{point\_on\_nearest\_distance()}{point\_on\_nearest\_distance()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+point\+\_\+on\+\_\+nearest\+\_\+distance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{point }\end{DoxyParamCaption})}
+
+
+
+Получить точки в области досягаемости заданной точки 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em point} & id заданной точки \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+список id точек в области досягаемости 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 246
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a096d686f2454e26538b68eb758667537}\label{class_samples_1_1_shema_player_samples_a096d686f2454e26538b68eb758667537}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!reachability\_distance@{reachability\_distance}}
+\index{reachability\_distance@{reachability\_distance}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{reachability\_distance()}{reachability\_distance()}}
+{\footnotesize\ttfamily def Samples.\+Shema\+Player\+Samples.\+reachability\+\_\+distance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{first\+\_\+point,  }\item[{}]{second\+\_\+pont }\end{DoxyParamCaption})}
+
+
+
+найти достижимое растояние между двумя точками 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em first\+\_\+point} & id первой точки \\
+\hline
+{\em second\+\_\+pont} & id второй точки \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+расстояние 
+\end{DoxyReturn}
+
+
+См. определение в файле Samples.\+py строка 235
+
+
+
+\doxysubsection{Данные класса}
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a0241da1057bd090a02919684690a0234}\label{class_samples_1_1_shema_player_samples_a0241da1057bd090a02919684690a0234}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!lip@{lip}}
+\index{lip@{lip}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{lip}{lip}}
+{\footnotesize\ttfamily Samples.\+Shema\+Player\+Samples.\+lip}
+
+
+
+порог, за которым данные являются анмальными 
+
+
+
+См. определение в файле Samples.\+py строка 182
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a2aa51de473941a9cf0891c856abb60ec}\label{class_samples_1_1_shema_player_samples_a2aa51de473941a9cf0891c856abb60ec}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!neighbour\_count@{neighbour\_count}}
+\index{neighbour\_count@{neighbour\_count}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{neighbour\_count}{neighbour\_count}}
+{\footnotesize\ttfamily Samples.\+Shema\+Player\+Samples.\+neighbour\+\_\+count}
+
+
+
+количество соседей в метоле локального вброса 
+
+
+
+См. определение в файле Samples.\+py строка 176
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_aee81df792ab7cd8008fafe2ac2869081}\label{class_samples_1_1_shema_player_samples_aee81df792ab7cd8008fafe2ac2869081}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!points@{points}}
+\index{points@{points}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{points}{points}}
+{\footnotesize\ttfamily Samples.\+Shema\+Player\+Samples.\+points}
+
+
+
+id точек, в выборках 
+
+
+
+См. определение в файле Samples.\+py строка 170
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_ab50e1fcc0ffe20bec4e80a2d04965794}\label{class_samples_1_1_shema_player_samples_ab50e1fcc0ffe20bec4e80a2d04965794}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!samples@{samples}}
+\index{samples@{samples}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{samples}{samples}}
+{\footnotesize\ttfamily Samples.\+Shema\+Player\+Samples.\+samples}
+
+
+
+линейные выборки данных 
+
+
+
+См. определение в файле Samples.\+py строка 173
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_ae879ede367baf0f23848116e8b6f1ed3}\label{class_samples_1_1_shema_player_samples_ae879ede367baf0f23848116e8b6f1ed3}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!vp\_tree@{vp\_tree}}
+\index{vp\_tree@{vp\_tree}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{vp\_tree}{vp\_tree}}
+{\footnotesize\ttfamily Samples.\+Shema\+Player\+Samples.\+vp\+\_\+tree}
+
+
+
+Дерево точек обзора 
+
+
+
+См. определение в файле Samples.\+py строка 179
+
+\mbox{\Hypertarget{class_samples_1_1_shema_player_samples_a6045ff3f6908a36ac3523c79ae8a02f1}\label{class_samples_1_1_shema_player_samples_a6045ff3f6908a36ac3523c79ae8a02f1}} 
+\index{Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}!VPtree@{VPtree}}
+\index{VPtree@{VPtree}!Samples.ShemaPlayerSamples@{Samples.ShemaPlayerSamples}}
+\doxysubsubsection{\texorpdfstring{VPtree}{VPtree}}
+{\footnotesize\ttfamily Samples.\+Shema\+Player\+Samples.\+V\+Ptree}
+
+
+
+См. определение в файле Samples.\+py строка 298
+
+
+
+Объявления и описания членов класса находятся в файле\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_samples_8py}{Samples.\+py}}\end{DoxyCompactItemize}

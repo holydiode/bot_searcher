@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-
 def plot_local_ouliter_factor(names, segments, corupt_points, clear_points):
     """
     пострение графика визвуально отоброажающего методов локального выброса и метода тьюки для двух измерений
