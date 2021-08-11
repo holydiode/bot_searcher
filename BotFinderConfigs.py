@@ -159,8 +159,8 @@ class DataBaseConfig(ProgramConfig):
         диалоговый ввод всех данных подключения
         """
         self.host = input('Адрес базы данных: ')
-        self.database = input('Имя базы данных: ')
-        self.user = input('Имя пользоваетля: ')
+        self.database = input('имя базы данных: ')
+        self.user = input('имя пользоваетля: ')
         self.__dialog_input_pass()
 
     def __dialog_input_pass(self):
