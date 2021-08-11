@@ -1,6 +1,6 @@
 from BotFinderConfigs import SamplesConfig
 from UserDataBase import UserDataBase
-from vptree import VPTree
+from VPTree import VPTree
 
 class Sample(dict):
     """
