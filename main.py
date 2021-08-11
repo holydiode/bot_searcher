@@ -222,7 +222,7 @@ class BotFinder:
         """
         if self.main_config.parse_samples_from_data_base:
             while 1:
-                base_config = DataBaseConfig().load_or_create(self.main_config.save_data_base_data, self.main_config.save_data_base_passwor)
+                base_config = DataBaseConfig().load_or_create(save_data= self.main_config.save_data_base_data,save_password= self.main_config.save_data_base_passwor)
                 self.data_base = UserDataBase(base_config.host,
                                               base_config.database,
                                               base_config.user,
@@ -294,8 +294,6 @@ class BotFinder:
                             else:
                                 raise Exception('Ошибка при парсинге данных')
 
-        self.shema.clear_from_incomplete(self.main_config.parse_samples_from_data_base and self.main_config.refresh_single_samples_element_if_missing, self.data_base)
-
         if self.main_config.save_session_data:
             for sample in self.shema.samples:
                 sample.export_to_file(self.main_config.samples_folder_name + '/' + sample.name + '.txt')
@@ -303,6 +301,9 @@ class BotFinder:
             with open(self.main_config.samples_folder_name + '/' + self.main_config.samples_player_name_file,
                       'w') as file:
                 file.write(' '.join(self.shema.points))
+
+        self.shema.clear_from_incomplete(self.main_config.parse_samples_from_data_base and self.main_config.refresh_single_samples_element_if_missing, self.data_base)
+
 
     def make_report(self):
         """

@@ -1,6 +1,5 @@
 from mysql import connector
 
-
 class UserDataBase:
     def __init__(self, host = 'localhost', database = None, user = 'root', password = ''):
         """
